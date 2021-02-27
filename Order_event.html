@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aikano Cafe</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="./node_modules/web3/dist/web3.min.js">
+    </script>
+</head>
+<body> 
+    <div class="container">
+        <h1 align="center"><font color="orange">Welcome to Aikano Cafe ~~~</font></h1>
+        <label class="col-lg-2 control-label"><h3 align="center">Menu</h3></label>
+	<table border="0" align="center"><form>
+        <tr align="center">
+                <td><img src="image/chocolate.jpg" width="220" height="200"><br />
+                <h4 id="choc">Iced Chocolate</h4>0.03 Ether
+		<input type="checkbox" id="check1" name="check1" value="Iced Chocolate">
+                <input type="button" value="Order" id="order1" style="background-color:#ffff00" >
+		</td>
+                <td><img src="image/cherry.jpg" width="220" height="200"><br />
+                <h4 id="cherry">Cherry Juice</h4>0.05 Ether
+                <input type="checkbox" id="check2" name="check2" value="Cherry Juice">
+                <input type="button" value="Order" id="order2" style="background-color:#ffff00" >
+                </td>
+                <td><img src="image/lemon.jpg" width="220" height="200"><br />
+                <h4 id="lemon">Lemon Tea</h4>0.02 Ether
+		<input type="checkbox" id="check3" name="check3" value="Lemon Tea">
+                <input type="button" value="Order" id="order3" style="background-color:#ffff00" >
+		</td>
+        </tr>
+        <tr align=center>
+                <td><img src="image/cheesecake.jpg" width="220" height="200"><br />
+                <h4 id="chc">Cheese Cake</h4>0.05 Ether
+                <input type="checkbox" id="check4" name="check4" value="Cheese Cake">
+                <input type="button" value="Order" id="order4" style="background-color:#ffff00" >
+                </td>
+                <td><img src="image/macaron.jpg" width="220" height="200"><br />
+                <h4 id="maca">Macaron</h4>0.03 Ether
+                <input type="checkbox" id="check5" name="check5" value="Macaron">
+                <input type="button" value="Order" id="order5" style="background-color:#ffff00" >
+                </td>
+		<td><img src="image/waffle.jpg" width="220" height="200"><br />
+                <h4 id="waf">Waffle</h4>0.01 Ether
+                <input type="checkbox" id="check6" name="check6" value="Waffle">
+                <input type="button" value="Order" id="order6" style="background-color:#ffff00" >
+                </td>
+        </tr></form></table><br />	
+
+	<label class="col-lg-2 control-label"><h3>Status</h3></label>
+       	<font color="green"><h6 id="result"></h6></font>
+        <font color="green"><h6 id="text"></h6></font>
+        <font color="green"><h6 id="owner"></h6></font><br>
+
+    </div>
+    <div class="logo">
+	<input type="button" onClick="insertData()" value="see your ordered" style="background-color:#f2ab39">
+    </div>
+  
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script language="javascript">
+	function insertData() {
+		var t = new Date().toLocaleTimeString();
+		$("#TableBody").html($("#TableBody").html() + "<tr><td>" + t + "</td><td>" + $("#text").html() + "</td><td>" + $("#owner").html() + "</td></tr>");
+        }
+    </script>
+    <script>
+	if (typeof web3 !== 'undefined') {
+            // this statement is executed if you are using 
+            // MetaMask 
+            async function enableAccounts() {            
+                await ethereum.enable()
+            }        
+            enableAccounts();  
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(
+                new Web3.providers.HttpProvider(
+                "http://localhost:8545"));
+        }
+
+        let abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "registration4",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "registration",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "registration3",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "registration2",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "hash",
+				"type": "bytes32"
+			}
+		],
+		"name": "OrderAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "reason",
+				"type": "string"
+			}
+		],
+		"name": "RegistrationError",
+		"type": "event"
+	}
+];
+ 
+	
+        var contract = web3.eth.contract(abi);
+        var myContract = contract.at(
+            '0x15b1Afa883243dF102EC5b3e9Dd28290a31A4484');        
+
+        var completeEvent =             
+            myContract.OrderAdded();
+
+        completeEvent.watch(function(error, result) {
+            if (!error){               
+		if (result.args.from == 
+                   web3.eth.defaultAccount){
+                   $("#result").html("Your order completed" );
+		   $("#owner").html(result.args.from);
+		   $("#text").html(result.args.text);
+		   
+               }               
+            }
+        });
+
+        var errorEvent = 
+            myContract.RegistrationError();
+
+        errorEvent.watch(function(error, result) {
+            if (!error){
+               if (result.args.from == 
+                   web3.eth.defaultAccount){
+                   $("#result").html(
+                       "Error. <br/> Order: " + 
+                       result.args.text + 
+                       "<br/> Reason: " + result.args.reason); 
+               }               
+            }
+        });
+
+        $("#order1").click(function() {
+            myContract.registration($("#check1").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 30000000000000000
+            },
+	    (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+                $("#owner").html("");
+                $("#text").html("");
+            });
+        });
+
+	$("#order2").click(function() {
+            myContract.registration2($("#check2").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 50000000000000000
+            },
+            (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+                $("#owner").html("");
+                $("#text").html("");
+            });
+        });
+	$("#order3").click(function() {
+            myContract.registration3($("#check3").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 20000000000000000
+            },
+            (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+                $("#owner").html("");
+                $("#text").html("");
+		
+            });
+        });
+	$("#order4").click(function() {
+            myContract.registration2($("#check4").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 50000000000000000
+            },
+            (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+                $("#owner").html("");
+                $("#text").html("");
+		
+            });
+        });
+	$("#order5").click(function() {
+            myContract.registration($("#check5").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 30000000000000000
+            },
+            (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+                $("#owner").html("");
+                $("#text").html("");
+       		    
+	     });
+        });
+	$("#order6").click(function() {
+            myContract.registration4($("#check6").val(),
+            {
+              gas: 300000,
+              from: web3.eth.accounts[0],
+              value: 10000000000000000
+            },
+            (error, result, owner, text) => {
+                $("#result").html("Your Order pending confirmation...");
+		$("#owner").html("");
+		$("#text").html("");
+            });
+        });	
+       
+
+    </script>
+    <table id="t1" border="1" align="center">
+	<caption><font color="red"><h3>Order</h3></font></caption>
+	<colgroup>
+		<col span="2" class="c2">
+		<col>
+		<col class="c1">
+	</colgroup>
+	<thead><tr align="center"><th>Time</th>
+				  <th>Order</th>
+				  <th>Owner</th></tr>
+	</thead>
+	<tbody id="TableBody"></tbody>
+    </table> 
+</body>
+</html>
